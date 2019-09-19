@@ -1,11 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import UserForm from './Form';
 import axios from 'axios';
+// import List from './List';
+
+
 
 function App() {
 
   const userApi = 'https://reqres.in/api/users'
+
+  const testArray = [{id: 1, name: 'alex', email: 'ggsgsgsg', password: 'jjjjj', tos: true}]
+
+  
+  const [userList, setUserList] = useState(testArray)
 
   const addUser = (formValues, actions) => {
     const newUser = {
@@ -17,16 +25,26 @@ function App() {
 
     axios.post(userApi, newUser)
         .then(res => {
-            console.log(res.data)
+            console.log(res.data);
+            const newEntry = res.data;
+            setUserList(userList.concat(newEntry));
+            console.log(userList);
+            actions.resetForm();
         })
         .catch(err => {
-            debugger
-        })
-}
+            console.log(err.message);
+        });
+  }
 
   return (
     <div className="App">
       <UserForm onSubmit={addUser}/>
+
+
+    {userList.map(entry => (
+      <p>{entry.name}</p>
+    ))}
+
     </div>
   );
 }

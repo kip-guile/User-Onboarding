@@ -1,13 +1,12 @@
 import React from 'react';
-import {Formik, Form, Field, ErrorMessage} from 'formik';
+import {Formik, Form, Field,} from 'formik';
 import * as yup from 'yup';
-import axios from 'axios';
 
 const initialValueForm = {
     name: '',
     email: '',
     password: '',
-    tos: '',
+    tos: false,
 }
 
 const validationSchema = yup.object().shape({
@@ -21,29 +20,9 @@ const validationSchema = yup.object().shape({
         .required('password is required'),
 });
 
-// const userApi = 'https://reqres.in/api/users'
-
-// const addUser = (formValues, actions) => {
-//     const newUser = {
-//         name: formValues.name,
-//         email: formValues.email,
-//         password: formValues.password,
-//         tos: formValues.tos,
-//     };
-
-//     axios.post(userApi, newUser)
-//         .then(res => {
-//             console.log(res.data)
-//         })
-//         .catch(err => {
-//             debugger
-//         })
-// }
-
-
 
 function UserForm(props){
-    const {values, errors, touched, onSubmit} = props;
+    const {onSubmit} = props;
 
     return(
     <Formik
@@ -54,7 +33,7 @@ function UserForm(props){
         return (
             <Form>
                 <div>
-                    <label> ANAME
+                    <label> NAME
                     <Field type='name' name='name' placeholder='Name'/>
                     </label>
                 </div>
@@ -71,11 +50,11 @@ function UserForm(props){
                 </label>  
                 </div>
 
-                {/* <div>
+                <div>
                 <label> ACCEPT TERMS OF SERVICE
-                    <Field type='checkbox' name='tos' checked={values.tos}/>
+                    <Field type='checkbox' name='tos'/>
                 </label>
-                </div> */}
+                </div>
                 <button type='submit'>Submit</button>
             </Form>
         );
