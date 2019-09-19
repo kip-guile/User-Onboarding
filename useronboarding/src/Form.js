@@ -84,6 +84,16 @@ function UserForm(props){
                         <Field type='checkbox' name='tos'/>
                     </label>
                     </StyledInnerDiv>
+
+                    <StyledInnerDiv>
+                    <label> CHOOSE, MAN!
+                        <Field component='select' name='card'>
+                            <option value="gold">Gold</option>
+                            <option value="silver">Silver</option>
+                            <option value="platinum">Platinum</option>
+                        </Field>
+                    </label>
+                    </StyledInnerDiv>
                     <Submit type='submit'>Submit</Submit>
                 </StyledDiv>
             </Form>
