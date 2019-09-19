@@ -1,12 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Form from './Form';
+import UserForm from './Form';
+import axios from 'axios';
 
 function App() {
+
+  const userApi = 'https://reqres.in/api/users'
+
+  const addUser = (formValues, actions) => {
+    const newUser = {
+        name: formValues.name,
+        email: formValues.email,
+        password: formValues.password,
+        tos: formValues.tos,
+    };
+
+    axios.post(userApi, newUser)
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(err => {
+            debugger
+        })
+}
+
   return (
     <div className="App">
-      <Form/>
+      <UserForm onSubmit={addUser}/>
     </div>
   );
 }

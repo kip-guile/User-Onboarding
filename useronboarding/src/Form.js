@@ -1,6 +1,7 @@
 import React from 'react';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as yup from 'yup';
+import axios from 'axios';
 
 const initialValueForm = {
     name: '',
@@ -20,15 +21,34 @@ const validationSchema = yup.object().shape({
         .required('password is required'),
 });
 
+// const userApi = 'https://reqres.in/api/users'
+
+// const addUser = (formValues, actions) => {
+//     const newUser = {
+//         name: formValues.name,
+//         email: formValues.email,
+//         password: formValues.password,
+//         tos: formValues.tos,
+//     };
+
+//     axios.post(userApi, newUser)
+//         .then(res => {
+//             console.log(res.data)
+//         })
+//         .catch(err => {
+//             debugger
+//         })
+// }
+
 
 
 function UserForm(props){
-    const {values, errors, touched} = props;
+    const {values, errors, touched, onSubmit} = props;
 
     return(
     <Formik
     initialValues = {initialValueForm}
-    // onSubmit = {onSubmit}
+    onSubmit = {onSubmit}
     validationSchema={validationSchema}
     render={props => {
         return (
@@ -51,11 +71,11 @@ function UserForm(props){
                 </label>  
                 </div>
 
-                <div>
+                {/* <div>
                 <label> ACCEPT TERMS OF SERVICE
                     <Field type='checkbox' name='tos' checked={values.tos}/>
                 </label>
-                </div>
+                </div> */}
                 <button type='submit'>Submit</button>
             </Form>
         );
