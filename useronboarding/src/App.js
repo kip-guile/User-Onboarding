@@ -2,21 +2,35 @@ import React, {useState} from 'react';
 import './App.css';
 import UserForm from './Form';
 import axios from 'axios';
-// import List from './List';
+import uuid from 'uuid';
+import styled from 'styled-components';
 
+const StyledP = styled.p`
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  padding: 1em;
+  background-color: lightskyblue;
+  border: 0.2em solid grey;`
 
+const StyledODiv = styled.div`
+    display: flex;
+    justify-content: space-around;
+    margin: 3em;
+    border: 0.2em solid black;
+    width: 90%;
+    align-self: center;`
 
 function App() {
 
   const userApi = 'https://reqres.in/api/users'
 
-  const testArray = [{id: 1, name: 'alex', email: 'ggsgsgsg', password: 'jjjjj', tos: true}]
+  const testArray = []
 
   
   const [userList, setUserList] = useState(testArray)
 
   const addUser = (formValues, actions) => {
     const newUser = {
+        key: uuid(),
         name: formValues.name,
         email: formValues.email,
         password: formValues.password,
@@ -25,11 +39,10 @@ function App() {
 
     axios.post(userApi, newUser)
         .then(res => {
-            console.log(res.data);
             const newEntry = res.data;
             setUserList(userList.concat(newEntry));
-            console.log(userList);
             actions.resetForm();
+            console.log(userList);
         })
         .catch(err => {
             console.log(err.message);
@@ -37,15 +50,15 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <StyledODiv>
       <UserForm onSubmit={addUser}/>
 
 
     {userList.map(entry => (
-      <p>{entry.name}</p>
+      <StyledP>{entry.name}</StyledP>
     ))}
 
-    </div>
+    </StyledODiv>
   );
 }
 
